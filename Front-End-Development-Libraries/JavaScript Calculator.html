@@ -1,0 +1,212 @@
+<hmtl>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.0/jquery-ui.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.3.6/marked.min.js"></script>
+
+  <style>
+
+  body {
+    background-color: #666;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .calc-container {
+    max-height: 410px;
+    border: 2px solid #47476b;
+    padding: 5px;
+    background: black;
+    width: 340px;
+    text-align: center;
+    justify-content: center;
+    border-radius: 9px;
+  }
+
+  #display {
+    min-height: 45px;
+    font-family: digital;
+    font-size: 30px;
+    color: orange;
+    text-align: right;
+    vertical-align: top;
+    line-height: 10px;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+  }
+
+  button {
+    box-sizing: border-box;
+    margin: 0em;
+    display: inline-block;
+    align-items: flex-start;
+    border: none;
+    position: relative;
+    width: 80px;
+    min-height: 65px;
+    color: #fff;
+    outline: 0.2px solid black;
+    background: #666;
+    font-family: Share Tech Mono, monospace;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 1px 6px;
+  }
+  button:hover {
+    color: black;
+    outline: 0.05em solid red;
+    z-index: 3;
+  }
+
+  #clear {
+    width: 164px;
+    background: #8B0000;
+  }
+
+  #top-operators {
+    top: 90px;
+  }
+
+  #zero {
+    width: 164px;
+  }
+
+  #zero, #decimal {
+    right: 42px;
+    bottom: 63px;
+  }
+
+  #one, #two, #three {
+    bottom: 32px;
+  }
+
+  #equals {
+    background: #004466;
+    height: 132px;
+    top: 2px;
+  }
+  </style>
+
+  <body>
+      <div class="calc-container">
+        <div id="display" value="0"><p>0</p></div>
+        
+        <div id="buttons">
+          <div id="top-operators">
+            <button id="clear" value="AC">AC</button>
+            <button id="divide" value="&divide">&divide</button>
+            <button id="multiply" value="*">X</button>
+          </div>
+            <button id="seven" value="7">7</button>
+            <button id="eight" value="8">8</button>
+            <button id="nine" value="9">9</button>
+            <button id="subtract" value="-">-</button>
+            <button id="four" value="4">4</button>
+            <button id="five" value="5">5</button>
+            <button id="six" value="6">6</button>
+            <button id="add" value="+">+</button>
+            <button id="one" value="1">1</button>
+            <button id="two" value="2">2</button>
+            <button id="three" value="3">3</button>
+            <button id="equals" value="=">=</button>
+        </div> 
+          <button id="zero" value="0">0</button>
+          <button id="decimal" value=".">.</button>
+        </div>
+  </body>
+
+  <script> 
+  const buttons = {
+  zero: 0,
+  one: 1,
+  two: 2,
+  three: 3,
+  four: 4,
+  five: 5,
+  six: 6,
+  seven: 7,
+  eight: 8,
+  nine: 9,
+  add: '+',
+  subtract: '-',
+  multiply: '*',
+  divide: '/',
+  decimal: '.',
+};
+
+const initialState = {
+  inputs: [],
+  currentInput: "",
+  update: function(states){
+    for(const e in states){
+      if(e !== "update" && states[e] !== undefined){
+        this[e] = states[e];
+      }
+    }
+    $("#display p").html(this.inputs.join("") + this.currentInput || "0")
+  },
+};
+
+var state = { ...initialState};
+
+$(document).ready( function() {
+  
+  
+  $("button").click( function() {
+    
+    var { inputs, currentInput} = state;
+    
+    switch ($(this).attr("id")) {
+      case "clear":
+        return state.update({ ...initialState });
+      case "equals":
+        const result = eval([...inputs, currentInput].join(""));
+        return state.update({ inputs: [], currentInput: result.toString() });
+      default:
+        return getValue(buttons[this.id]);
+    } 
+  });
+  
+  function getValue(value){
+    var {inputs, currentInput} = state;
+    if (currentInput == 0 && value == 0){
+      return state.update({currentInput: "0"})
+    }
+    const operatorsRegex = /\+|-|\*|\//;
+    
+    if (operatorsRegex.test(value)){
+      const last = [...inputs].pop();
+      const lastIsOperator = operatorsRegex.test(last);
+      const beforeLast = [...inputs.slice(-3)];
+      const beforeLastTest = operatorsRegex.test(beforeLast[0])
+      const stringCheck = [...inputs.slice(-2)];
+      const valueTest = operatorsRegex.test(value);
+      
+      if(!currentInput && !lastIsOperator){
+        return;
+      }else if (!currentInput && lastIsOperator && value !== "-" && last !== "-"){
+        state.update({
+          inputs: [...inputs.slice(0, inputs.length - 1), value]
+        });
+      } else if(beforeLastTest && lastIsOperator && valueTest && stringCheck[0] === ""){
+        state.update({
+          inputs: [...inputs.slice(0, inputs.length - 3), value]
+        });
+      } else {
+        return state.update({
+          inputs: [...inputs, !!currentInput ? currentInput: "", value],
+          currentInput: ""
+        });
+      }        
+    }
+    
+    const decimalRegex = /^\d*\.?\d*$/;
+    const newString = currentInput + value;
+    if(decimalRegex.test(newString)){
+      return state.update({ currentInput: newString})
+    }
+  }
+});
+  </script>
+</html>

@@ -1,0 +1,329 @@
+<html>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<style>
+
+body {
+  font-family: Roboto;
+  background-color: #666;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}
+
+.container {
+  align-items: center;
+  position: relative;
+  width: 660px;
+  text-align: center;
+  background-color: #b3b3b3;
+  justify-content: center;
+}
+
+.pad-bank {
+  width: 332px;
+  height: 272px;
+  display: inline-block;
+  margin: 20px;
+  font-size: 2em;
+}
+
+button {
+  position: relative;
+  float: left;
+  width: 100px;
+  height: 80px;
+  margin-right: 10px;
+  border-radius: 5px;
+  box-sizing: border-box;
+  cursor: pointer;
+  height: 77;
+  margin-top: 13;
+  background-color: grey;
+  box-shadow: 0 3px grey;
+  font-size: 1.1em;
+  bottom: 0px;
+  padding: 0px;
+}
+
+button:active {
+  background-color: orange;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+
+.divlogo {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  font-style: italic;
+  font-weight: bold;
+  font-size: 20px;
+  display: inline-block;
+}
+
+.controls-container {
+  width: 240px;
+  height: 272px;
+  display: inline-block;
+  margin: 1px 20px 0 0px;
+  vertical-align: top;
+}
+
+.power {
+  width: 100px;
+  margin: auto;
+}
+.power p {
+  margin-bottom: 0;
+}
+#display {
+  width: 200px;
+  background-color: gray;
+  margin: 15px;
+  padding: 15px;
+  box-sizing: border-box;
+}
+
+.bank {
+  margin: auto;
+  width: 100px;
+}
+.bank p {
+  margin-bottom: 0;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+</style>
+  <body>
+    <div id="drum-machine" class="container">
+      
+      <div class="pad-bank">
+        <button class="drum-pad" id="heater1" target="_top">Q
+          <audio id="Q" class="clip" src="https://s3.amazonaws.com/freecodecamp/drums/Chord_1.mp3"></audio>
+        </button>
+        <button class="drum-pad" id="heater2" target="_top">W
+          <audio id="W" class="clip" src="https://s3.amazonaws.com/freecodecamp/drums/Chord_2.mp3"></audio>
+        </button>
+        <button class="drum-pad" id="heater3" target="_top">E
+          <audio id="E" class="clip" src="https://s3.amazonaws.com/freecodecamp/drums/Chord_3.mp3"></audio>
+        </button>
+        <button class="drum-pad" id="heater4" target="_top">A
+          <audio id="A" class="clip" src="https://s3.amazonaws.com/freecodecamp/drums/Give_us_a_light.mp3"></audio>
+        </button>
+        <button class="drum-pad" id="heater5" target="_top">S
+          <audio id="S" class="clip" src="https://s3.amazonaws.com/freecodecamp/drums/Dry_Ohh.mp3"></audio>
+        </button>
+        <button class="drum-pad" id="heater6" target="_top">D
+          <audio id="D" class="clip" src="https://s3.amazonaws.com/freecodecamp/drums/Bld_H1.mp3"></audio>
+        </button>
+        <button class="drum-pad" id="heater7" target="_top">Z
+          <audio id="Z" class="clip" src="https://s3.amazonaws.com/freecodecamp/drums/punchy_kick_1.mp3"</audio>
+        </button>
+        <button class="drum-pad" id="heater8" target="_top">
+          X
+          <audio id="X" class="clip" src="https://s3.amazonaws.com/freecodecamp/drums/side_stick_1.mp3"></audio>
+        </button>
+        <button class="drum-pad" id="heater9" target="_top">C
+          <audio id="C" class="clip" src="https://s3.amazonaws.com/freecodecamp/drums/Brk_Snr.mp3"></audio>
+        </button>
+      </div>
+      
+      <div class="divlogo">
+        FCC <i class=" fa fa-free-code-camp"></i>
+      </div>
+      
+        <div class="controls-container">
+          <div class="power">
+            <p>Power</p>
+            <label class="switch">
+              <input id="checkbox-power"    type="checkbox">
+              <span class="slider"></span>
+            </label>
+          </div>
+          <div id="display"><p></p></div>
+          <div class="volume">
+            <input max="1" min="0" onChange="" step="0.01" type="range" value=""/>
+          </div>
+          <div class="bank">
+            <p>Bank</p>
+            <label class="switch">
+              <input id="checkbox-bank" type="checkbox">
+              <span class="slider"></span>
+            </label>
+          </div>
+        </div>  
+        
+    </div>
+  </body>
+
+  <script>
+
+    function play(selector, clip, str){
+      $(selector).addClass("played");
+      $(clip)[0].load();
+      $(clip)[0].play();
+      $("#display p").text(str);
+    }
+    
+    function releaseKey(selector){
+      $(selector).removeClass("played");
+    }
+    
+    
+    
+    $('#heater1').on("click", function(){
+      play('#heater1', '#Q', 'Piano Note C');
+      
+    }) 
+    
+    $('#heater2').on("click", function(){
+      play('#heater2', '#W', 'Piano Note D');
+      
+    
+    })  
+    
+    $('#heater3').on("click", function(){
+      play('#heater3', '#E', 'Piano Note E');
+      
+    
+    }) 
+    
+    $('#heater4').on("click", function(){
+      play('#heater4', '#A', 'Piano Note F');
+      
+    
+    })  
+    
+    $('#heater5').on('click', function(){
+      play('#heater5', '#S', 'Piano Note G');
+      
+    
+    })  
+    
+    $('#heater6').on('click', function(){
+      play('#heater6', '#D', 'Piano Note A');
+      
+    
+    })  
+    
+    $('#heater7').on('click', function(){
+      play('#heater7', '#Z', 'Piano Note B');
+      
+    
+    })  
+    
+    $('#heater8').on('click', function(){
+      play('#heater8', '#X', 'Piano Note X');
+    })  
+    
+    $('#heater9').on('click', function(){
+      play('#heater9', '#C', 'Piano Note Z');
+    
+    })  
+    
+    
+    
+    $(document).keydown(function(e) {
+        switch(e.which){
+          case 81: {
+            play('#heater1', '#Q', 'Piano Note C');
+             break;
+          }
+          case 87: {
+            play('#heater2', '#W', 'Piano Note D'); 
+            break;
+          }
+          case 69: {
+            play('#heater3', '#E', 'Piano Note E'); 
+             break;
+          }
+          case 65: {
+            play('#heater4', '#A', 'Piano Note F');
+             break;
+          }
+          case 83: {
+            play('#heater5', '#S', 'Piano Note G');
+             break;
+          }
+          case 68: {
+            play('#heater6', '#D', 'Piano Note A'); 
+             break;
+          }
+          case 90: {
+            play('#heater7', '#Z', 'Piano Note B'); 
+             break;
+          }
+          case 88: { 
+            play('#heater8', '#X', 'Piano Note X');
+            break;
+          }
+          case 67: {
+            play('#heater9', '#C', 'Piano Note Z');
+            break;
+          }
+      }
+    }).keyup(function(){
+      releaseKey('#heater1');
+      releaseKey('#heater2');
+      releaseKey('#heater3');
+      releaseKey('#heater4');
+      releaseKey('#heater5');
+      releaseKey('#heater6');
+      releaseKey('#heater7');
+      releaseKey('#heater8');
+      releaseKey('#heater9');
+    })
+    
+    </script>
+    
+</html>

@@ -1,0 +1,187 @@
+<html>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.0/jquery-ui.min.js"></script>
+
+<style>
+  *{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    vertical-align: baseline;
+  }
+
+  div{
+    position:relative;
+    z-index: 2;
+  }
+
+  body{
+    background-color: #666;
+    color: #666;
+    font-family: Roboto;
+    font-weight: 400;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+
+  #quote-box{
+    border-radius: 5px;
+    position: relative;
+    width: 450px;
+    padding: 40px 50px;
+    display: table;
+    background-color: #fff;
+    height: auto;
+    clear: both;
+    text-align: center;
+  }
+
+  .quote-text{
+      text-align: center;
+      width: 400px;
+      height: auto;
+      clear: both;
+      font-weight: 500;
+      font-size: 1.80em;
+      margin-right: 0.5em;
+      align-items: center;
+  }
+
+  .quote-text > i{
+    font-size: 1em;
+    margin-right: 0.5em;
+  }
+
+  .quote-author {
+      width: 400px;
+      height: auto;
+      clear: both;
+      padding-top: 25px;
+      font-size: 0.8;
+      text-align: right;
+    }
+
+  .button{
+    margin: auto;
+    width: 400px;
+    height: 40px;
+    border-radius: 40px;
+    color: #fff;
+    background-color: #333;
+    padding: 8px 18px 8px 18px;
+    opacity: 1;
+    margin-top: 30px;
+    cursor: pointer;
+  }
+
+  #new-quote{
+    float: right;
+    padding: 0px;
+    padding-top: 2px;
+    text-align: center;
+    font-size: 1em;
+    height: 38px;
+    width: 110px;
+    
+  }
+
+  #tweet-quote,#tumblr-quote{
+    float: left;
+    padding: 0px;
+    padding-top: 5px;
+    text-align: center;
+    font-size: 1.5em;
+    margin-right: 7px;
+    height: 32px;
+    width: 40px;
+  }
+
+  .footer{
+  text-align: center;
+  display: block;
+  color: #fff;
+  width: 400px;
+  margin: 15px auto 30px auto;
+  font-size: 1.1em;
+  }
+
+  .footer > a {
+    text-decoration: none;
+    color: #fff;
+  }
+</style>
+<script>
+  var quote = ""
+  var author;
+  var quotesData;
+
+  function getQuotesFunc () {
+    var url = "https://gist.githubusercontent.com/camperbot/5a022b72e96c4c9585c32bf6a75f62d9/raw/e3c6895ce42069f0ee7e991229064f167fe8ccdc/quotes.json";  
+    return $.getJSON( url, function(json){
+      quotesData = json;
+    });
+  }
+
+  function randomQuotesFunc (){
+    return quotesData.quotes [Math.floor(Math.random() * quotesData.quotes.length)]
+  }
+
+  function quoteFunc (){
+    let randomQuote = randomQuotesFunc ();
+    
+    $(".quote-text").animate({}, function () {
+      $("#text").html(randomQuote.quote) 
+    })
+    
+    $(".quote-author").animate({}, function(){
+      $("#author").html(randomQuote.author)
+    })
+
+    quote = randomQuote.quote;
+    author = randomQuote.author;
+    
+    $("#tweet-quote").prop(
+      "href",
+      "https://twitter.com/intent/tweet?hashtags=quotes&related=freecodecamp&text=" + 
+      encodeURIComponent(quote + author)
+    );
+    
+    $("#tumblr-quote").prop(
+      "href",
+      "https://www.tumblr.com/widgets/share/tool?posttype=quote&tags=quotes,freecodecamp&caption=",
+      encodeURIComponent(quote) +
+      "&content=" +
+      encodeURIComponent(author) +
+      "&canonicalUrl=https%3A%2F%2Fwww.tumblr.com%2Fbuttons&shareSource=tumblr_share_button"
+    )
+  }
+
+  $(document).ready(function () {
+    getQuotesFunc().then(() => {
+      quoteFunc()
+    })
+    $("#new-quote").on("click", quoteFunc);
+  })
+
+</script>
+
+  <div id="wrapper">
+    <div id="quote-box">
+      <div class="quote-text">
+        <i clas="fa fa-quote-left"></i><span id="text"></span>  
+      </div>
+      <div class="quote-author"><span id="author"></span></div>
+        <a class="button" id="tweet-quote" title="Tweet it!" target="_top"><i class="fa fa-twitter"></i>
+        </a>
+        <a class="button" id="tumblr-quote" title="Post it on Tumblr!" target="_blank">
+          <i class="fa fa-tumblr"></i>
+        </a>
+        <button class="button" id="new-quote">New Quote!</button>
+      </div>
+    <div class="footer">By <a href="https://codepen.io/Kl42">K</a></div>
+  </div>
+</html>

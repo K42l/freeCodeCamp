@@ -1,0 +1,122 @@
+<html>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.3.6/marked.min.js"></script>
+  <style>
+    
+*{
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  vertical-align: baseline;
+}
+
+div {
+  position: relative;
+  z-index: 2;
+}
+
+#title{
+  text-align: center;
+  color: #fff;
+}
+
+body{
+  background-color: #333;
+  color: #666;
+  
+  font-weight: 400;  
+}
+
+#editor{
+  background-color: #ccffcc;
+  width: 30vw;
+  height: 90vh;
+  display: flex;
+  margin: 1.25rem auto;
+  font-size: 1.2em;
+}
+
+#preview{
+  background-color:  #b3ffb3;
+  width: 50vw;
+  height: 100vh;
+  display: block;
+  margin: 1.25rem auto;
+  font-family: Russo One;
+  overflow-y: scroll;
+  padding: 25px;
+}
+
+code, pre {
+  background-color: #fff;
+}
+  </style>
+  <script>
+    var placeHolder=
+ `
+# Welcome to my jQuery Markdown Previewer!
+## This is a sub-heading... 
+    
+### And here's some other cool stuff:
+   
+Heres some code, \`<div></div>\`, between 2 backticks.
+
+\`\`\`javascript
+// this is multi-line code:
+
+function anotherExample(firstLine, lastLine) {
+  if (firstLine == '\`\`\`' && lastLine == '\`\`\`') {
+    return multiLineCode;
+  }
+}
+\`\`\`
+  
+You can also make text **bold**... whoa!
+Or _italic_.
+Or... wait for it... **_both!_**
+And feel free to go crazy ~~crossing stuff out~~.
+
+There's also [links](https://www.freecodecamp.com), and
+> Block Quotes!
+
+And if you want to get really crazy, even tables:
+
+Wild Header   |   Crazy Header  |   Another Header?
+------------  |   ------------  |   ------------- 
+Your content can | be here, and it | can be here....
+And here. | Okay. | I think we get it.
+
+- And of course there are lists.
+  - Some are bulleted.
+     - With different indentation levels.
+        - That look like this.
+
+
+1. And there are numbererd lists too.
+1. Use just 1s if you want! 
+1. But the list goes on...
+- Even if you use dashes or asterisks.
+* And last but not least, let's not forget embedded images:
+
+![React Logo w/ Text](http://pluspng.com/img-png/logo-jquery-png--250.png)`
+
+$(document).ready(function(){
+  marked.setOptions({
+    breaks:true
+  });
+  $("#editor").text(placeHolder);
+  $("#preview").html(marked(placeHolder));
+  $("#editor")
+  .on("input", (data) => $("#preview").html(marked(data.target.value)));
+});
+  </script>
+  <head> 
+      <h1 id="title">Markdown Previewer</h1>
+  </head>
+  <body>
+    <div id="wrapper">
+        <textarea id="editor" name="editor" rows="50"         cols="200" placeholder="placeholder"></textarea>
+      <div id="preview"></div>
+    </div>
+  </body>
+</html>
