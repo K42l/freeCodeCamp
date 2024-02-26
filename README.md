@@ -2,7 +2,7 @@
 
 
 ENG: <br/>
- Projects to conclude the courses<br/>
+ Projects to conclude the courses and get the certificates<br/>
  Theses projects, are the first ones i did as a programmer so i could get the certificates.<br/>
  They are very simple and have minimum functionality required to pass the freeCodeCamp tests, only to conclude the courses and get the certificates.
  <br/> <br/>
