@@ -2,7 +2,7 @@
 
 
 ENG: <br/>
- Projects to conclude the courses and get the certificates<br/>
+ Projects to conclude the courses and get the certificates.<br/>
  Theses projects, are the first ones i did as a programmer so i could get the certificates.<br/>
  They are very simple and have minimum functionality required to pass the freeCodeCamp tests, only to conclude the courses and get the certificates.
  <br/> <br/>
@@ -12,7 +12,7 @@ The Front End and Responsive Web Desing projects, can be tested directly on http
 PT-BR:<br/>
 Projetos para concluir os cursos e obter os certificados da freeCodeCamp.<br/>
 Esses projetos, são os primeiros que eu fiz como programador, para que eu pudesse tirar os certificados.<br/>
-Eles são bem simples e possuem o mínimo de funcionalidades requiridas para passar nos testes da freeCodeCamp, somente para concluir os cursos e tirar os certificados
+Eles são bem simples e possuem o mínimo de funcionalidades requiridas para passar nos testes da freeCodeCamp, somente para concluir os cursos e tirar os certificados.
 <br/> <br/>
 Os projetos Back End e de Python, podem ser testados diretamente em https://replit.com/@kglino325/.<br/>
 Os projetos de Front End and Responsive Web Desing, podem ser visualizados e testados diretamente on https://codepen.io/Kl42/<br/>
