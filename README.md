@@ -8,7 +8,7 @@ ENG: <br/>
  <br/> <br/>
 The Back End and Python projects, can be tested directly on https://replit.com/@kglino325/ <br/>
 The Front End and Responsive Web Desing projects, can be tested directly on https://codepen.io/Kl42/
-<br/> <br/>
+<br/> <br/><br/>
 PT-BR:<br/>
 freeCodeCamp - Projetos para concluir os cursos e obter os certificados da freeCodeCamp.<br/>
 Esses projetos, são os primeiros que eu fiz como programador, para que eu pudesse tirar os certificados.
